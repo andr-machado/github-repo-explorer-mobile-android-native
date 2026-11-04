@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+
 }
 
 android {
@@ -50,6 +51,10 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.android)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.kotlinx.serialization)
+    implementation(libs.okhttp)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
     ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)

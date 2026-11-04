@@ -11,6 +11,9 @@ kotlinxSerialization = "1.9.0"
 navigation = "2.10.2"
 hilt = "2.60.1"
 ksp = "2.3.9"
+retrofit = "3.0.0"
+retrofitKotlinxSerializationConverter = "1.0.0"
+okhttp = "5.5.0"
 composeBom = "2026.02.01"
 
 [libraries]
@@ -32,6 +35,11 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter-kotlinx-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit" }
+retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinxSerializationConverter" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
