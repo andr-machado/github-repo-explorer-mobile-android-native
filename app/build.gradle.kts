@@ -58,6 +58,8 @@ dependencies {
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.room3.runtime)
     implementation(libs.room3.paging)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.viewmodel.navigation3)
     ksp(libs.room3.compiler)
     ksp(libs.hilt.compiler)
 
