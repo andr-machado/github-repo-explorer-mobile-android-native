@@ -1,0 +1,44 @@
+name: Close issues on develop merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [develop]
+
+permissions:
+  issues: write
+  pull-requests: read
+  contents: read
+
+jobs:
+  close-referenced-issues:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.pull_request.body ?? '';
+            const re = /\b(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?)\s+#(\d+)\b/gi;
+            const numbers = [...new Set([...body.matchAll(re)].map(m => Number(m[1])))];
+            if (numbers.length === 0) {
+              core.info('No closing keywords in PR body — nothing to do.');
+              return;
+            }
+            for (const n of numbers) {
+              const { data: issue } = await github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: n,
+              });
+              if (issue.pull_request) { core.info(`#${n} is a PR — skipping.`); continue; }
+              if (issue.state === 'closed') { core.info(`#${n} already closed.`); continue; }
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: n,
+                state: 'closed',
+                state_reason: 'completed',
+              });
+              core.info(`Closed #${n}.`);
+            }
